@@ -9,7 +9,7 @@ class Params(models.Model):
         return f'{self.name_search}, {self.where_search}'
 
 class Skills_table(models.Model):
-    skil = models.CharField(max_length=16, unique=True)
+    skil = models.CharField(max_length=60,unique=True)
     # how_many_skil = models.IntegerField()
 
     def __str__(self):
