@@ -9,7 +9,7 @@
             <div class="container d-flex align-items-center flex-column">
 
                 <!-- Masthead Heading-->
-                <h1 class="masthead-heading text-uppercase mb-0">Результаты запроса</h1>
+                <h1 class="masthead-heading text-uppercase mb-0">Результаты запросов</h1>
                 <!-- Icon Divider-->
 <br>
                 <!-- Masthead Subheading-->
@@ -17,68 +17,53 @@
                     <div class="col-lg-auto" align="left">
                         <p class="lead">
                             <h3>
-                            Параметры поиска
+                            Параметры последнего поиска
                             </h3>
                          <br>
                         <h4>
                             <ol>
                                 {% for par in param %}
                                 <li>{{par.name_search}}</li>
+                                <br>
                                 <li>{{par.where_search}}</li>
                                 {% endfor %}
                             </ol>
                         </h4>
                         </p>
                     </div>
-
- {% if posts %}
                 </div>
             </div>
         </header>
+<br>
+{% if vac %}
+<div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+        {% for vacanc in vac %}
+        <div class="post-preview">
+            <a href="{% url 'parser:vacancy' id=vacanc.id %}">
+                <h2 class="post-title">
+                    {{ vacanc.name }}
+                </h2>
+                {{vacanc.comment}}
+                <h5 class="post-subtitle">
+                    Зарплата {{vacanc.salary}}
+                </h5>
+            </a>
 
-        <section class="page-section portfolio" id="portfolio">
-            <div class="container">
-                <!-- Portfolio Section Heading-->
-                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">РЕЗУЛЬТАТ</h2>
-                <!-- Icon Divider-->
-                <br>
-                <table class ="table table-striped" align="center" >
-                    <thead>
-                        <tr>
-                            <th>Название</th>
-                            <th>Зарплата</th>
-                            <th>Описание</th>
-                            <th>Навыки</th>
-<!--                            <th>Как часто встречается</th>-->
-                            <th>Ссылка на страницу на hh.ru</th>
-                        </tr>
-                    <thead>
-                    <tbody>
-                        {% for vacanc in posts %}
-
-                        <tr>
-                                <td>{{vacanc.0.name}}</td>
-                                <td>{{vacanc.0.salary}}
-                                <td>{{vacanc.0.about}}</td>
-                                <td>
-                                    {% if vacanc.1 %}
-                                        {% for skil in vacanc.1 %}
-                                            {{skil}};
-                                        {% endfor %}
-                                    {% else %}
-                                        Не указаны
-                                    {% endif%}
-                                </td>
-                                <td> <a href={{vacanc.0.link}}> {{vacanc.0.link}}</a></td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </section>
+        </div>
+        <hr>
+        {% endfor %}
+        <!-- Pager -->
+<!--        <div class="clearfix">-->
+<!--            <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>-->
+<!--        </div>-->
+    </div>
+</div>
   {% else %}
         <p class="lead">
             <h4> Некоректный запрос</h4>
    {% endif%}
+
+
 
 {% endblock %}

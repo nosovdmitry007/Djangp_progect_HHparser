@@ -9,7 +9,7 @@ class Params(models.Model):
         return f'{self.name_search}, {self.where_search}'
 
 class Skills_table(models.Model):
-    skil = models.CharField(max_length=60,unique=True)
+    skil = models.CharField(max_length=60)
     # how_many_skil = models.IntegerField()
 
     def __str__(self):
@@ -23,6 +23,8 @@ class Vacancy(models.Model):
     salary = models.CharField(max_length=32)
     about = models.TextField(blank=True)
     link = models.TextField(unique=True)
+    comment = models.TextField(blank=True)
+
     skils = models.ManyToManyField(Skills_table)
 
     def __str__(self):
