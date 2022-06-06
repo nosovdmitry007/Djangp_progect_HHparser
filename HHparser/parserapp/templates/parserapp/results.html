@@ -22,7 +22,7 @@
                          <br>
                         <h4>
                             <ol>
-                                {% for par in param %}
+                                {% for par in vac.0 %}
                                 <li>{{par.name_search}}</li>
                                 <br>
                                 <li>{{par.where_search}}</li>
@@ -38,7 +38,7 @@
 {% if vac %}
 <div class="row">
     <div class="col-lg-8 col-md-10 mx-auto">
-        {% for vacanc in vac %}
+        {% for vacanc in vac.1 %}
         <div class="post-preview">
             <a href="{% url 'parser:vacancy' id=vacanc.id %}">
                 <h2 class="post-title">

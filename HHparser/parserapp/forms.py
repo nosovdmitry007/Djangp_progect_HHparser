@@ -1,6 +1,6 @@
 from django import forms
 from .models import Vacancy
-# >>> f = ContactForm(data, initial=data)
+
 
 class SearchForm(forms.Form):
     data = (('name', 'В названии вакансии'),
@@ -20,6 +20,4 @@ class ComentForm(forms.ModelForm):
 
     class Meta:
         model = Vacancy
-        # fields = '__all__'
         fields = ('comment',)
-        # exclude = ('skils')
