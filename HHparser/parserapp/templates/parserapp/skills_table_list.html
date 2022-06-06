@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}
+Список скилов
+{% endblock %}
+
+{% block content %}
+<header class="masthead bg-primary text-white text-center">
+            <div class="container d-flex align-items-center flex-column">
+
+                <!-- Masthead Heading-->
+                <h1 class="masthead-heading text-uppercase mb-0">скилы вакансий</h1>
+<br>
+                <h3>При нажатие нв скил будут показаны вакансии, где требуется выбраный навык</h3>
+                <!-- Icon Divider-->
+                            </div>
+        </header>
+
+
+<div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+        <table class ="table table-striped" align="center" >
+                    <thead>
+                        <tr>
+                            <th>Скилы</th>
+                            <th>Как часто встречаются</th>
+                        </tr>
+                    <thead>
+                    <tbody>
+
+                                {% for vacanc in skils %}
+                                <tr>
+
+                                <td>
+                                    <a href="{% url 'parser:skil_vacanc' id=vacanc.0 %}">
+                                        {{ vacanc.1 }}
+                                    </a>
+                                </td>
+                                <td>{{vacanc.2}}</td>
+
+
+                                {% endfor %}
+        <!-- Pager -->
+<!--        <div class="clearfix">-->
+<!--            <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>-->
+<!--        </div>-->
+    </div>
+</div>
+
+
+{% endblock %}
