@@ -4,16 +4,14 @@ import time
 from parserapp.models import Vacancy, Skills_table, Params
 
 
-def hh_serch(tex, param, del_bd):
+def hh_serch(tex, param, del_bd,user_serch):
 
     url = 'https://api.hh.ru/vacancies'
-
-    Params.objects.all().delete()
     if del_bd == 'delit':
+        Params.objects.all().delete()
         Vacancy.objects.all().delete()
         Skills_table.objects.all().delete()
-    else:
-        pass
+
 
     if param == "name":
         ser = 'В названии вакансии '
@@ -23,7 +21,7 @@ def hh_serch(tex, param, del_bd):
         ser ='В описание'
 
 
-    Params.objects.create(name_search=tex, where_search=ser)
+    Params.objects.create(name_search=tex, where_search=ser,user=user_serch)
 
     vac = 0
     key = []
@@ -61,7 +59,7 @@ def hh_serch(tex, param, del_bd):
 
                 vac = Vacancy.objects.create(name=result['items'][z]['name'], salary=zp,
                                        about=ab,
-                                       link=result['items'][z]['alternate_url'])
+                                       link=result['items'][z]['alternate_url'],user=user_serch)
 
                 for skills_vac in requests.get(result['items'][z]['url']).json()['key_skills']:
                     skill_vacancy = skills_vac['name']
@@ -69,7 +67,7 @@ def hh_serch(tex, param, del_bd):
                     #
                     #     skills.append(skill_vacancy)
                         # try:
-                    vac.skils.create(skil=skill_vacancy)
+                    vac.skils.create(skil=skill_vacancy,user=user_serch)
                         # except:
                         #     pass
 

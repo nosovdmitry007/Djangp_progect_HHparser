@@ -6,7 +6,7 @@ class SearchForm(forms.Form):
     data = (('name', 'В названии вакансии'),
             ('company_name', 'В названии компании'),
             ('description', 'В описание'))
-    delite = (('delit','Удалить'),('no_delit','Не удалять'))
+    delite = (('no_delit','Не удалять'),('delit','Удалить'))
     name = forms.CharField(label='Поисковый запрос',widget=forms.TextInput(attrs={'placeholder': 'Name', 'class': 'form-control'}))
 
     where = forms.ChoiceField(choices=data, label='Где искать',widget=forms.Select(attrs={'placeholder': 'Name', 'class': 'form-control'}))

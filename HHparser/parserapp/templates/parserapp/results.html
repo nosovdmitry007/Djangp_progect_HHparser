@@ -5,6 +5,7 @@
 {% endblock %}
 {% block content %}
         <!-- Masthead-->
+{% if vac.0 %}
         <header class="masthead bg-primary text-white text-center">
             <div class="container d-flex align-items-center flex-column">
 
@@ -35,7 +36,7 @@
             </div>
         </header>
 <br>
-{% if vac %}
+
 <div class="row">
     <div class="col-lg-8 col-md-10 mx-auto">
         {% for vacanc in vac.1 %}
@@ -59,11 +60,17 @@
 <!--        </div>-->
     </div>
 </div>
-  {% else %}
-        <p class="lead">
-            <h4> Некоректный запрос</h4>
-   {% endif%}
 
 
+{% else %}
+<header class="masthead bg-primary text-white text-center">
+            <div class="container d-flex align-items-center flex-column">
+
+<h3 class="masthead-heading text-uppercase mb-0" align="center" >
+Пока нет результатов поиска вакансий
+    </h3>
+            </div>
+</header>
+{% endif %}
 
 {% endblock %}

@@ -34,11 +34,27 @@
                         <li class="nav-item mx-0 mx-lg-1">
                             <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'parser:skil_list' %}">Скилы</a></li>
 
+                                {% if user.is_authenticated %}
+                                <li class="nav-item mx-0 mx-lg-1">
+                                Пользователь: {{ user.username }}</li>
+                         <li class="nav-item mx-0 mx-lg-1">
+                                <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'users:logout' %}">Выход</a></li>
+                            {% else %}
+                                <li class="nav-item mx-0 mx-lg-1">
+                                    <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'users:login' %}">Вход</a></li>
+
+                                 <li class="nav-item mx-0 mx-lg-1">
+                                    <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'users:register' %}">Регистрация</a></li>
+                            {% endif %}
+
+
                     </ul>
                 </div>
             </div>
         </nav>
+    </body>
         <!-- Masthead-->
-                {% block content %}{% endblock %}
-       </body>
+    {% block content %}{% endblock %}
+
+
 </html>
