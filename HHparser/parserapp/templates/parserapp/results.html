@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}
+Результат
+{% endblock %}
+{% block content %}
+        <!-- Masthead-->
+{% if vac.0 %}
+        <header class="masthead bg-primary text-white text-center">
+            <div class="container d-flex align-items-center flex-column">
+
+                <!-- Masthead Heading-->
+                <h1 class="masthead-heading text-uppercase mb-0">Результаты запросов</h1>
+                <!-- Icon Divider-->
+<br>
+                <!-- Masthead Subheading-->
+                <div class="row">
+                    <div class="col-lg-auto" align="left">
+                        <p class="lead">
+                            <h3>
+                            Параметры последнего поиска
+                            </h3>
+                         <br>
+                        <h4>
+                            <ol>
+                                {% for par in vac.0 %}
+                                <li>{{par.name_search}}</li>
+                                <br>
+                                <li>{{par.where_search}}</li>
+                                {% endfor %}
+                            </ol>
+                        </h4>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </header>
+<br>
+
+<div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+        {% for vacanc in vac.1 %}
+        <div class="post-preview">
+            <a href="{% url 'parser:vacancy' id=vacanc.id %}">
+                <h2 class="post-title">
+                    {{ vacanc.name }}
+                </h2>
+                {{vacanc.comment}}
+                <h5 class="post-subtitle">
+                    Зарплата {{vacanc.salary}}
+                </h5>
+            </a>
+
+        </div>
+        <hr>
+        {% endfor %}
+        <!-- Pager -->
+<!--        <div class="clearfix">-->
+<!--            <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>-->
+<!--        </div>-->
+    </div>
+</div>
+
+
+{% else %}
+<header class="masthead bg-primary text-white text-center">
+            <div class="container d-flex align-items-center flex-column">
+
+<h3 class="masthead-heading text-uppercase mb-0" align="center" >
+Пока нет результатов поиска вакансий
+    </h3>
+            </div>
+</header>
+{% endif %}
+
+{% endblock %}
