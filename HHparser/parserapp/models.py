@@ -33,6 +33,9 @@ class Vacancy(models.Model):
     user = models.ForeignKey(ParserUser, on_delete=models.CASCADE)
     skils = models.ManyToManyField(Skills_table)
 
+    def some_method(self):
+        return 'hello from method'
+
     def __str__(self):
         return f'{self.name}, {self.salary}, {self.about}, {self.link}, {self.skils}'
 
