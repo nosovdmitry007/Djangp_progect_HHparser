@@ -14,6 +14,7 @@
                 <table class ="table table-striped" align="center" >
                     <thead>
                         <tr>
+                            <th>Дата публикации</th>
                             <th>Название</th>
                             <th>Зарплата</th>
                             <th>Описание</th>
@@ -27,6 +28,7 @@
                     <tbody>
                         {% for vac in post %}
                         <tr>
+                                <td>{{vac.0.date_publik}}</td>
                                 <td>{{vac.0.name}}</td>
                                 <td>{{vac.0.salary}}
                                 <td>{{vac.0.about}}</td>
@@ -43,17 +45,38 @@
                             <td>{{vac.0.comment}}</td>
                             <td>
             <a class="btn btn-primary float-right" href="/comment/{{post.0.0.id}}">Добавить комментарий</a>
+                                <br><br>
+               <a class="btn btn-danger" href="{% url 'parser:vac_delite' pk=post.0.0.id %}" >Удалить вакансию</a>
         </td>
                         </tr>
                 {% endfor %}
 
+
+
                     </tbody>
                 </table>
+
             </div>
         </section>
 
 
+    <div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
 
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
 
 
 

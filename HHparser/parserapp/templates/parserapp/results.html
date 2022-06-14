@@ -5,7 +5,7 @@
 {% endblock %}
 {% block content %}
         <!-- Masthead-->
-{% if vac.0 %}
+{% if vac.param %}
         <header class="masthead bg-primary text-white text-center">
             <div class="container d-flex align-items-center flex-column">
 
@@ -23,10 +23,12 @@
                          <br>
                         <h4>
                             <ol>
-                                {% for par in vac.0 %}
-                                <li>{{par.name_search}}</li>
+                                {% for par in vac.param %}
+
+                                <li>{{par.name_search}}
                                 <br>
-                                <li>{{par.where_search}}</li>
+                                {{par.where_search}}</li>
+                                <br>
                                 {% endfor %}
                             </ol>
                         </h4>
@@ -37,9 +39,10 @@
         </header>
 <br>
 
-<div class="row">
+
     <div class="col-lg-8 col-md-10 mx-auto">
-        {% for vacanc in vac.1 %}
+        {% for vacanc in vac.vac %}
+
         <div class="post-preview">
             <a href="{% url 'parser:vacancy' id=vacanc.id %}">
                 <h2 class="post-title">
@@ -50,16 +53,31 @@
                     Зарплата {{vacanc.salary}}
                 </h5>
             </a>
+            <p>Дата публикации: {{ vacanc.date_publik }} в {{ vacanc.date_time }} по МСК</p>
 
         </div>
+
         <hr>
         {% endfor %}
-        <!-- Pager -->
-<!--        <div class="clearfix">-->
-<!--            <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>-->
-<!--        </div>-->
-    </div>
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
 </div>
+    </div>
+
 
 
 {% else %}

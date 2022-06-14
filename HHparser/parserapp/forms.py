@@ -7,10 +7,13 @@ class SearchForm(forms.Form):
             ('company_name', 'В названии компании'),
             ('description', 'В описание'))
     delite = (('no_delit','Не удалять'),('delit','Удалить'))
-    name = forms.CharField(label='Поисковый запрос',widget=forms.TextInput(attrs={'placeholder': 'Name', 'class': 'form-control'}))
+    name = forms.CharField(label='Поисковый запрос',widget=forms.TextInput(attrs={'placeholder': 'Запрос', 'class': 'form-control'}))
 
-    where = forms.ChoiceField(choices=data, label='Где искать',widget=forms.Select(attrs={'placeholder': 'Name', 'class': 'form-control'}))
-    delit = forms.ChoiceField(choices=delite, label='Удалить данные из БД',widget=forms.Select(attrs={'placeholder': 'Name', 'class': 'form-control'}))
+    where = forms.ChoiceField(choices=data, label='Где искать',widget=forms.Select(attrs={'class': 'form-control'}))
+    res = forms.CharField(label='Сколько результатов поиска выводить',
+                           widget=forms.TextInput(attrs={'placeholder': 'Кол-во вакансий', 'class': 'form-control'}))
+
+    delit = forms.ChoiceField(choices=delite, label='Удалить данные из БД',widget=forms.Select(attrs={'class': 'form-control'}))
 
 
 

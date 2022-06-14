@@ -30,8 +30,11 @@ class Vacancy(models.Model):
     about = models.TextField(blank=True,verbose_name='About')
     link = models.TextField(blank=True,verbose_name='Link')
     comment = models.TextField(blank=True,verbose_name='Commentary')
+    date_publik = models.TextField(blank=True,verbose_name='date_publication')
+    date_time = models.TextField(blank=True,verbose_name='time_publication')
     user = models.ForeignKey(ParserUser, on_delete=models.CASCADE)
     skils = models.ManyToManyField(Skills_table)
+    vis = models.BooleanField(default=True)
 
     def some_method(self):
         return 'hello from method'
