@@ -1,14 +1,13 @@
+
 from django.contrib.auth.mixins import LoginRequiredMixin
+
 from django.urls import reverse_lazy
-from parserapp.models import Params
 from .models import Vacancy,Skills_table
 from .forms import SearchForm
 from django.views.generic import ListView, DetailView,  UpdateView, TemplateView
 from .parser import hh_serch
 from django.views.generic.edit import FormView
-from django.db.models import Max
 
-Vacancy.objects.annotate(last_edit=Max('about'))
 
 #главная страница
 class AboutView(TemplateView):
@@ -20,17 +19,13 @@ class VacancListView(LoginRequiredMixin,ListView):
     model = Vacancy
     template_name = "parserapp/results.html"
     context_object_name = 'vac'
-    paginate_by = 5
+    paginate_by = 20
 
     def get_queryset(self):
-        param = Params.objects.filter(user=self.request.user)
+
         vac = Vacancy.objects.filter(user=self.request.user,vis=True)
-        result = {
-            'param': param,
-            'vac': vac,
-        }
-        print(result)
-        return result
+
+        return vac
 
 #Форма поиска
 
@@ -40,14 +35,11 @@ class SearchFormView(LoginRequiredMixin,FormView):
     success_url = reverse_lazy('parserapp:results')
 
     def form_valid(self, form):
-        # This method is called when valid form data has been POSTed.
-        # It should return an HttpResponse.
         user_serch = self.request.user
         name_search = form.cleaned_data['name']
         where_search = form.cleaned_data['where']
         del_bd = form.cleaned_data['delit']
         rec=form.cleaned_data['res']
-        print(rec)
         hh_serch(name_search, where_search, del_bd,user_serch,rec)
 
         return super().form_valid(form)
@@ -58,7 +50,6 @@ class SearchFormView(LoginRequiredMixin,FormView):
 class VacancyDetailView(LoginRequiredMixin,DetailView):
     model = Skills_table
     template_name = 'parserapp/vacancy.html'
-
 
     context_object_name = 'post'
     def get(self, request, *args, **kwargs):
@@ -98,8 +89,9 @@ class SkillListView(LoginRequiredMixin,ListView):
             if s.skil not in skills:
                 skills.append(s.skil)
                 col = Skills_table.objects.filter(skil=s.skil, user=self.request.user).count()
-                res = [s.id] + [s.skil] + [col]
-                results.append(res)
+                if col>1:
+                    res = [s.id] + [s.skil] + [col]
+                    results.append(res)
         def sort_by_col(emp):
             return emp[2]
         results.sort(key=sort_by_col, reverse=True)
@@ -111,10 +103,11 @@ class SkilVacDetailView(LoginRequiredMixin,DetailView):
     model = Skills_table
     template_name = 'parserapp/skil_vacanc.html'
     context_object_name = 'post'
-    paginate_by = 2
+
     def get(self, request, *args, **kwargs):
         self.skil_id = kwargs['id']
         return super().get(request, *args, **kwargs)
+
     def get_object(self, queryset=None):
         vac = Vacancy.objects.filter(user=self.request.user,vis=True)
         sk = Skills_table.objects.filter(pk=self.skil_id,user=self.request.user)
@@ -132,8 +125,6 @@ class SkilVacDetailView(LoginRequiredMixin,DetailView):
                 results.append(guv)
                 skil = 0
         return results
-
-
 
 class VacDeleteView(LoginRequiredMixin,UpdateView):
     fields = ('vis',)
