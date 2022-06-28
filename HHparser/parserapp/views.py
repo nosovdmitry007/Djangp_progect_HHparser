@@ -115,7 +115,6 @@ class SkilVacDetailView(LoginRequiredMixin,DetailView):
                 guv = [post] + [z]
                 results.append(guv)
                 skil = 0
-        print(results)
         return results
 
 class VacDeleteView(LoginRequiredMixin,UpdateView):
