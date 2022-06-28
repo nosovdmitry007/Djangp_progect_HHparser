@@ -1,6 +1,6 @@
-
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.db.models import  Count
+from operator import itemgetter
 from django.urls import reverse_lazy
 from .models import Vacancy,Skills_table
 from .forms import SearchForm
@@ -82,19 +82,11 @@ class SkillListView(LoginRequiredMixin,ListView):
     context_object_name = 'skils'
     paginate_by = 20
     def get_queryset(self):
-        skills = []
-        skils = Skills_table.objects.filter(user=self.request.user)
-        results = []
-        for s in skils:
-            if s.skil not in skills:
-                skills.append(s.skil)
-                col = Skills_table.objects.filter(skil=s.skil, user=self.request.user).count()
-                if col>1:
-                    res = [s.id] + [s.skil] + [col]
-                    results.append(res)
-        def sort_by_col(emp):
-            return emp[2]
-        results.sort(key=sort_by_col, reverse=True)
+        results = Skills_table.objects.extra(
+            select=dict(key="content_item.data -> 'skil'")
+        ).values('skil').order_by('skil').annotate(total=Count('skil'))
+
+        results = sorted(results, key=itemgetter('total'), reverse=True)
         return results
 
 #список вакансий по выбранному скилу
@@ -105,25 +97,25 @@ class SkilVacDetailView(LoginRequiredMixin,DetailView):
     context_object_name = 'post'
 
     def get(self, request, *args, **kwargs):
-        self.skil_id = kwargs['id']
+        self.skil = kwargs['skil']
         return super().get(request, *args, **kwargs)
 
     def get_object(self, queryset=None):
-        vac = Vacancy.objects.filter(user=self.request.user,vis=True)
-        sk = Skills_table.objects.filter(pk=self.skil_id,user=self.request.user)
+        vacanc = Vacancy.objects.prefetch_related('skils')
         results = []
         skil = 0
-        for post in vac:
+        for post in vacanc:
             k = post.skils.all()
             z = []
             for y in k:
                 z.append(y)
-                if sk[0].skil == y.skil:
+                if self.skil == y.skil:
                     skil += 1
             if skil > 0:
                 guv = [post] + [z]
                 results.append(guv)
                 skil = 0
+        print(results)
         return results
 
 class VacDeleteView(LoginRequiredMixin,UpdateView):

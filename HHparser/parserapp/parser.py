@@ -78,6 +78,7 @@ def hh_serch(tex, param, del_bd,user_serch,res):
 
                 for skills_vac in requests.get(result['items'][z]['url']).json()['key_skills']:
                     skill_vacancy = skills_vac['name']
+                    skill_vacancy=skill_vacancy.replace('/', ' ')
                     vac.skils.create(skil=skill_vacancy,user=user_serch)
 
             except:

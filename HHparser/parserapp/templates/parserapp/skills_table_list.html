@@ -28,14 +28,15 @@
                         </tr>
                     <thead>
                     <tbody>
-                        {% for vacanc in skils %}
+
+                        {% for sk in skils %}
                         <tr>
                         <td>
-                            <a href="{% url 'parser:skil_vacanc' id=vacanc.0 %}">
-                                {{ vacanc.1 }}
+                            <a href="{% url 'parser:skil_vacanc' skil=sk.skil %}">
+                                {{ sk.skil }}
                             </a>
                         </td>
-                        <td>{{vacanc.2}}</td>
+                        <td>{{sk.total}}</td>
                         {% endfor %}
                         </tr>
                 </tbody>

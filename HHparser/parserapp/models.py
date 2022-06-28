@@ -1,6 +1,34 @@
 from django.db import models
 from usersapp.models import ParserUser
 # Create your models here.
+from django.db.models import F
+
+# 3 типа наследования: abstract, классическое, proxy
+class ActiveManager(models.Manager):
+
+    def get_queryset(self):
+        all_objects = super().get_queryset()
+        return all_objects.filter(is_active=True)
+
+
+class IsActiveMixin(models.Model):
+    objects = models.Manager()
+    active_objects = ActiveManager()
+    is_active = models.BooleanField(default=False)
+
+    class Meta:
+        abstract = True
+
+
+class UpdatedObjectsManager(models.Manager):
+
+    def get_queryset(self):
+        all_objects = super().get_queryset()
+        # Дата обновления не равна дата содания F - запрос
+        return all_objects.filter(update=F('create'))
+
+
+
 class Params(models.Model):
     name_search = models.TextField(blank=True,verbose_name='Name search')
     where_search = models.CharField(max_length=32,verbose_name='Where search')

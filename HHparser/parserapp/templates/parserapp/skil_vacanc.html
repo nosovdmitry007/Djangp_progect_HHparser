@@ -30,7 +30,7 @@
                         <tr>
                                 <td>{{vac.0.date_publik}}</td>
                                 <td>{{vac.0.name}}</td>
-                                <td>{{vac.0.salary}}
+                                <td>{{vac.0.salary}}</td>
                                 <td>{{vac.0.about}}</td>
                                 <td>
                                     {% if post.0.1 %}
@@ -41,12 +41,12 @@
                                         Не указаны
                                     {% endif%}
                                 </td>
-                                <td> <a href={{post.0.0.link}}> {{vac.0.link}}</a></td>
+                                <td> <a href={{vac.link}}> {{vac.0.link}}</a></td>
                             <td>{{vac.0.comment}}</td>
                             <td>
-            <a class="btn btn-primary float-right" href="/comment/{{post.0.0.id}}">Добавить комментарий</a>
+            <a class="btn btn-primary float-right" href="/comment/{{vac.0.id}}">Добавить комментарий</a>
                                 <br><br>
-               <a class="btn btn-danger" href="{% url 'parser:vac_delite' pk=post.0.0.id %}" >Удалить вакансию</a>
+               <a class="btn btn-danger" href="{% url 'parser:vac_delite' pk=vac.0.id %}" >Удалить вакансию</a>
         </td>
                         </tr>
                 {% endfor %}
