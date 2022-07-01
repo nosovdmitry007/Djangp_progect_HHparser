@@ -1,8 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import  Count
+from django.db.models import Count
 from operator import itemgetter
 from django.urls import reverse_lazy
-from .models import Vacancy,Skills_table
+from .models import Vacancy, Skills_table
 from .forms import SearchForm
 from django.views.generic import ListView, DetailView,  UpdateView, TemplateView
 from .parser import hh_serch
