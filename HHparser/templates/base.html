@@ -36,7 +36,8 @@
 
                                 {% if user.is_authenticated %}
                                 <li class="nav-item mx-0 mx-lg-1">
-                                Пользователь: {{ user.username }}</li>
+                                Пользователь:
+                                    <a href="{% url 'users:profile' pk=user.pk %}"> {{ user.username }}</a></li>
                          <li class="nav-item mx-0 mx-lg-1">
                                 <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'users:logout' %}">Выход</a></li>
                             {% else %}
@@ -56,9 +57,12 @@
         <!-- Masthead-->
     {% block content %}{% endblock %}
 
+<body>
+
                     <button type="button" id="btn-joke" class="btn-danger">
                     тест js
                 </button>
-
+<script src="static/vendor/jquery/jquery-3.6.0.min.js"></script>
 <script src="{% static 'js/my.js' %}"></script>
+</body>
 </html>
