@@ -2,6 +2,7 @@
 import math
 import maya
 import requests
+import pprint
 from parserapp.models import Vacancy, Skills_table, Params
 
 def hh_serch(tex, param, del_bd,user_serch,res):
@@ -43,7 +44,7 @@ def hh_serch(tex, param, del_bd,user_serch,res):
         }
 
         result = requests.get(url, params=params).json()
-
+        # pprint.pprint(result)
         if (i + 1)*20 > kol_vac:
             iter = kol_vac-i*20
         else:
