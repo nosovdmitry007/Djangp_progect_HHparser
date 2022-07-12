@@ -33,6 +33,7 @@
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/results/">Вакансии</a></li>
                         <li class="nav-item mx-0 mx-lg-1">
                             <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'parser:skil_list' %}">Скилы</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/filterphoto/">Фильтр фотографий</a></li>
 
                                 {% if user.is_authenticated %}
                                 <li class="nav-item mx-0 mx-lg-1">
@@ -59,9 +60,9 @@
 
 <body>
 
-                    <button type="button" id="btn-joke" class="btn-danger">
-                    тест js
-                </button>
+<!--                    <button type="button" id="btn-joke" class="btn-danger">-->
+<!--                    тест js-->
+<!--                </button>-->
 <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
 <script src="{% static 'js/my.js' %}"></script>
 <script src="{% static 'js/my_jquery.js' %}"></script>

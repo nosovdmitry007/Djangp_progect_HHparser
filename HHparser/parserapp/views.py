@@ -3,9 +3,10 @@ from django.db.models import Count
 from operator import itemgetter
 from django.urls import reverse_lazy
 from .models import Vacancy, Skills_table
-from .forms import SearchForm
+from .forms import SearchForm, PhotoFilterForm
 from django.views.generic import ListView, DetailView,  UpdateView, TemplateView
 from .parser import hh_serch
+from .PhotoFilter import filterphoto
 from django.views.generic.edit import FormView
 
 
@@ -44,7 +45,20 @@ class SearchFormView(LoginRequiredMixin,FormView):
 
         return super().form_valid(form)
 
+class FilterPhoto(LoginRequiredMixin,FormView):
+    template_name = 'parserapp/filterphoto.html'
+    form_class = PhotoFilterForm
+    success_url = reverse_lazy('parserapp:resultfilter')
 
+    def form_valid(self, form):
+        put = form.cleaned_data['put']
+
+        filterphoto(put)
+
+        return super().form_valid(form)
+
+class ResultFilterView(TemplateView):
+    template_name = "parserapp/resultfilter.html"
 #Детальная информация по вакансии
 
 class VacancyDetailView(LoginRequiredMixin,DetailView):

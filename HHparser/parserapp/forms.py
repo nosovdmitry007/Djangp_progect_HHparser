@@ -24,3 +24,8 @@ class ComentForm(forms.ModelForm):
     class Meta:
         model = Vacancy
         fields = ('comment',)
+
+class PhotoFilterForm(forms.Form):
+
+    put = forms.CharField(label='Путь к папке с фотографиями',widget=forms.TextInput(attrs={'placeholder': 'Путь', 'class': 'form-control'}))
+
