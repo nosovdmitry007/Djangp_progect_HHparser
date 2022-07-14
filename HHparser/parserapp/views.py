@@ -52,8 +52,8 @@ class FilterPhoto(LoginRequiredMixin,FormView):
 
     def form_valid(self, form):
         put = form.cleaned_data['put']
-
-        filterphoto(put)
+        format = form.cleaned_data['format']
+        filterphoto(put,format)
 
         return super().form_valid(form)
 
