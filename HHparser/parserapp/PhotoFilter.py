@@ -5,23 +5,15 @@ from PIL import Image
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.models import load_model
 import os #Работа с папками и файлами
-from pathlib import Path
 
 def filterphoto(put,format):
 #Создаём классы по которым будем класифицировать фотографии
-    className=['Fokus','Geometriy','Horoshie_foto','Miganie','Peresvet','Smazany','Temniy','shum']
-    formraw = ['CR', 'K25', 'KDC', 'CRW', 'CR2', 'CR3', 'ERF', 'NEF', 'NRW', 'ORF', 'PEF', 'RW2', 'ARW', 'SRF', 'SR2']
+    className=['Fokus','Good_foto','Peresvet','Temniy']
     #Размер изображения для НС
     visota=50
     shirina=50
     sloi=3
     xTest = []
-
-    # будем делить вю выборку на обучающую и тестовую в соотношении 90% к 10%
-    # также сразу будет поворачивать фотографии и добавлять шума в класс шум
-    # решепим фотографии до размера 50*50, иначе не хватает ОЗУ
-    #создаем список файлов в директории
-    # paths = sorted(Path(put).glob(f'*.{format}'))
 
     puti = [_ for _ in os.listdir(put) if _.endswith(f'.{format}')]
 
@@ -52,7 +44,7 @@ def filterphoto(put,format):
         L.close()
 
         # data_file= open(,'r')
-        model1 = load_model('./parserapp/best_model_99.72.h5', compile=False)
+        model1 = load_model('./parserapp/best_model_87.3.h5', compile=False)
     #создаем папки по категориям
         for k in className:
             if not os.path.isdir(put + '\\' + k):
