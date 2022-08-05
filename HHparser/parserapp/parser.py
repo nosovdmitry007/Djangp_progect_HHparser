@@ -9,9 +9,9 @@ def hh_serch(tex, param, del_bd,user_serch,res):
     kol_vac=int(res)
     url = 'https://api.hh.ru/vacancies'
     if del_bd == 'delit':
-        Params.objects.all().delete()
-        Vacancy.objects.all().delete()
-        Skills_table.objects.all().delete()
+        Params.objects.filter(user=user_serch).delete()
+        Vacancy.objects.filter(user=user_serch).delete()
+        Skills_table.objects.filter(user=user_serch).delete()
 
     if param == "name":
         ser = 'В названии вакансии '
